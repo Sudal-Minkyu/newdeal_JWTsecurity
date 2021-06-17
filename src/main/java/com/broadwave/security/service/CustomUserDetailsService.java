@@ -30,7 +30,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             return null;
         } else {
             // DB 에 User 값이 존재한다면 UserDetails 객체로 만들어서 리턴
-            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(account.get().getAuthority().toString());
+            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(account.get().getRole().toString());
             return new User(String.valueOf(account.get().getUsername()), account.get().getPassword(), Collections.singleton(grantedAuthority));
         }
     }

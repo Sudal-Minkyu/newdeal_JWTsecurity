@@ -2,7 +2,9 @@ package com.broadwave.security.config;
 
 import com.broadwave.security.account.Account;
 import com.broadwave.security.account.AccountRepository;
-import com.broadwave.security.account.Authority;
+import com.broadwave.security.account.AccountRole;
+import com.broadwave.security.teams.Team;
+import com.broadwave.security.teams.TeamRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -10,7 +12,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Slf4j
@@ -21,24 +23,50 @@ public class AppRunner implements ApplicationRunner {
     AccountRepository accountRepository;
 
     @Autowired
+    TeamRepository teamRepository;
+
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     // 최초실행시 테스트할 계정임시로 만들기
     @Override
     public void run(ApplicationArguments args) {
-        Account account = Account.builder()
-                .username("admin")
-                .password(passwordEncoder.encode("123789"))
-                .authority(Authority.ROLE_ADMIN)
-                .insertDate(String.valueOf(LocalDate.now()))
-                .build();
 
-        Optional<Account> accountCheck = accountRepository.findByUsername(account.getUsername());
-        if(accountCheck.isPresent()){
-            log.info("admin 계정존재");
+        // 부서저장
+        Team team = Team.builder()
+                .teamcode("T00001")
+                .teamname("시스템관리자")
+                .remark("뉴딜 시스템관리 부서생성")
+                .insertDateTime(LocalDateTime.now())
+                .insert_id("system")
+                .build();
+        Optional<Team> teamValue = teamRepository.findByTeamcode("T00001");
+        if(teamValue.isPresent()) {
+            log.info("시스템 Team 존재");
         }else{
+            log.info("시스템 Team 생성");
+            teamRepository.save(team);
+        }
+
+        // 관리자저장
+        Account account = Account.builder()
+                .userid("admin")
+                .username("관리자")
+                .email("admin@mail.com")
+                .password(passwordEncoder.encode("123789"))
+                .insertDateTime(LocalDateTime.now())
+                .insert_id("system")
+                .role(AccountRole.ROLE_ADMIN)
+                .team(teamValue.get())
+                .build();
+        Optional<Account> adminAccount = accountRepository.findByUsername(account.getUsername());
+        if(adminAccount.isPresent()) {
+            log.info("관리자 admin 존재");
+        }else{
+            log.info("관리자 admin 생성");
             accountRepository.save(account);
         }
+
     }
 
 }

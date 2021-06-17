@@ -1,12 +1,14 @@
 package com.broadwave.security.controller.dto;
 
 import com.broadwave.security.account.Account;
-import com.broadwave.security.account.Authority;
-import lombok.*;
+import com.broadwave.security.account.AccountRole;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @AllArgsConstructor
@@ -20,8 +22,8 @@ public class AccountRequestDto {
         return Account.builder()
                 .username(username)
                 .password(passwordEncoder.encode(password))
-                .authority(Authority.ROLE_ADMIN)
-                .insertDate(String.valueOf(LocalDate.now()))
+                .role(AccountRole.ROLE_ADMIN)
+                .insertDateTime(LocalDateTime.now())
                 .build();
     }
 
