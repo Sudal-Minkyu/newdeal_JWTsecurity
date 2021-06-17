@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class InfraSecurityApplication {
+public class NewdealSecurityApplication {
     public static void main(String[] args) {
-        SpringApplication.run(InfraSecurityApplication.class, args);
+        SpringApplication.run(NewdealSecurityApplication.class, args);
     }
 }

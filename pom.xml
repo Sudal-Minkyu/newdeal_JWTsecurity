@@ -9,10 +9,10 @@
         <relativePath/>
     </parent>
     <groupId>com.broadwave.security</groupId>
-    <artifactId>infraSecurity</artifactId>
+    <artifactId>NewdealSecurity</artifactId>
     <version>1.0.0</version>
-    <name>infraSecurity</name>
-    <description>infraSecurity Server</description>
+    <name>NewdealSecurity</name>
+    <description>NewdealSecurity Server</description>
 
     <properties>
         <java.version>11</java.version>
