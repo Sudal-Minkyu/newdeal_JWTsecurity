@@ -11,13 +11,13 @@ import javax.persistence.Table;
 
 @Getter
 @NoArgsConstructor
-@Table(name ="bs_team_account_jwt_token")
+@Table(name ="nd_bs_account_jwt_refresh_token")
 @Entity
 public class RefreshToken {
 
     @Id
-    @Column(name="jwt_username")
-    private String username;
+    @Column(name="jwt_userid")
+    private String userid;
 
     @Column(name="jwt_value")
     private String value;
@@ -28,8 +28,8 @@ public class RefreshToken {
     }
 
     @Builder
-    public RefreshToken(String username, String value) {
-        this.username = username;
+    public RefreshToken(String userid, String value) {
+        this.userid = userid;
         this.value = value;
     }
 }

@@ -32,13 +32,11 @@ public class AjaxResponse {
         return this.res;
     }
 
-    public Map<String, Object> fail(String err_code,String err_msg) {
+    public Map<String, Object> fail() {
         res.clear();
         res.put("status",500);
         res.put("timestamp", new Timestamp(System.currentTimeMillis()));
         res.put("message", "Error");
-        res.put("err_code", err_code);
-        res.put("err_msg", err_msg);
 
         return this.res;
     }

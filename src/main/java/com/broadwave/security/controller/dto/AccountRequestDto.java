@@ -15,12 +15,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class AccountRequestDto {
 
-    private String username;
+    private String userid;
     private String password;
 
     public Account toAccount(PasswordEncoder passwordEncoder) {
         return Account.builder()
-                .username(username)
+                .userid(userid)
                 .password(passwordEncoder.encode(password))
                 .role(AccountRole.ROLE_ADMIN)
                 .insertDateTime(LocalDateTime.now())
@@ -28,6 +28,6 @@ public class AccountRequestDto {
     }
 
     public UsernamePasswordAuthenticationToken toAuthentication() {
-        return new UsernamePasswordAuthenticationToken(username, password);
+        return new UsernamePasswordAuthenticationToken(userid, password);
     }
 }

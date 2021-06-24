@@ -61,6 +61,7 @@ public class TokenProvider {
                 .compact();
 
         return TokenDto.builder()
+                .insert_id(authentication.getName())
                 .grantType(BEARER_TYPE)
                 .accessToken(accessToken)
                 .accessTokenExpiresIn(accessTokenExpiresIn.getTime())

@@ -36,7 +36,7 @@ public class AppRunner implements ApplicationRunner {
         Team team = Team.builder()
                 .teamcode("T00001")
                 .teamname("시스템관리자")
-                .remark("뉴딜 시스템관리 부서생성")
+                .remark("뉴딜 시스템관리 부서")
                 .insertDateTime(LocalDateTime.now())
                 .insert_id("system")
                 .build();
@@ -59,7 +59,7 @@ public class AppRunner implements ApplicationRunner {
                 .role(AccountRole.ROLE_ADMIN)
                 .team(teamValue.get())
                 .build();
-        Optional<Account> adminAccount = accountRepository.findByUsername(account.getUsername());
+        Optional<Account> adminAccount = accountRepository.findByUserid(account.getUserid());
         if(adminAccount.isPresent()) {
             log.info("관리자 admin 존재");
         }else{

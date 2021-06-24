@@ -23,15 +23,15 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final AccountRepository accountRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Account> account = accountRepository.findByUsername(username);
+    public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
+        Optional<Account> account = accountRepository.findByUserid(userid);
         if (account.isEmpty()) {
-            log.info(username+"을 데이터베이스에서 찾을 수 없습니다.");
+            log.info(userid+"을 데이터베이스에서 찾을 수 없습니다.");
             return null;
         } else {
             // DB 에 User 값이 존재한다면 UserDetails 객체로 만들어서 리턴
             GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(account.get().getRole().toString());
-            return new User(String.valueOf(account.get().getUsername()), account.get().getPassword(), Collections.singleton(grantedAuthority));
+            return new User(String.valueOf(account.get().getUserid()), account.get().getPassword(), Collections.singleton(grantedAuthority));
         }
     }
 
