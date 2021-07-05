@@ -75,35 +75,8 @@ public class AuthService {
     @Transactional
     public TokenDto reissue(TokenRequestDto tokenRequestDto) {
 
-
-//        // 3. 받은 RefreshToken 과 해당유저 DB의 RefreshToken이 일치하는지 확인한다.
-//        Optional<RefreshToken> optionalRefreshToken = refreshTokenRepository.findByUserid(tokenRequestDto.getInsert_id());
-//        if(optionalRefreshToken.isPresent()){
-//            // 4. Refresh Token 일치하는지 검사
-//            if(optionalRefreshToken.get().getValue().equals(tokenRequestDto.getRefreshToken())){
-//
-//                UsernamePasswordAuthenticationToken authenticationToken = accountRequestDto.toAuthentication();
-//                Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-//
-//                // 5. 새로운 토큰 생성
-//                TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
-//
-//                RefreshToken refreshToken = refreshTokenRepository.findByUserid(authentication.getName())
-//                        .orElseThrow(() -> new RuntimeException("로그아웃 된 사용자입니다."));
-//
-//                // 6. 저장소 정보 업데이트
-//                RefreshToken newRefreshToken = refreshToken.updateValue(tokenDto.getRefreshToken());
-//                refreshTokenRepository.save(newRefreshToken);
-//
-//                // 7. 토큰 발급
-//                return tokenDto;
-//
-//            }else{
-//                throw new RuntimeException("토큰의 유저 정보가 일치하지 않습니다.");
-//            }
-//        }else{
-//            throw new RuntimeException("DB정보가 존재하지 않습니다.");
-//        }
+        log.info("tokenRequestDto.getAccessToken 테스트 : "+tokenRequestDto.getAccessToken());
+        log.info("tokenRequestDto.getRefreshToken 테스트 : "+tokenRequestDto.getRefreshToken());
 
         // 1. Refresh Token 검증
         if (!tokenProvider.validateToken(tokenRequestDto.getRefreshToken())) {
@@ -111,10 +84,6 @@ public class AuthService {
         }else{
             log.info("유효한 Refresh Token");
         }
-
-        log.info("tokenRequestDto.getInsert_id 테스트 : "+tokenRequestDto.getInsert_id());
-        log.info("tokenRequestDto.getAccessToken 테스트 : "+tokenRequestDto.getAccessToken());
-        log.info("tokenRequestDto.getRefreshToken 테스트 : "+tokenRequestDto.getRefreshToken());
 
         // 2. Access Token 에서 Member ID 가져오기
         Authentication authentication = tokenProvider.getAuthentication(tokenRequestDto.getAccessToken());

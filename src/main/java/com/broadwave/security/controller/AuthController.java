@@ -30,12 +30,6 @@ public class AuthController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    // 회원가입
-//    @PostMapping("/signup")
-//    public ResponseEntity<AccountResponseDto> signup(@RequestBody AccountRequestDto accountRequestDto) {
-//        return ResponseEntity.ok(authService.signup(accountRequestDto));
-//    }
-
     // 로그인
     @PostMapping("/login")
     public ResponseEntity<Map<String,Object>> login(@RequestBody AccountRequestDto accountRequestDto) {

@@ -16,7 +16,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
              registry.addMapping("/auth/**") // auth 경로의대한 모든권한 허용
-                     .allowedOrigins("http://192.168.0.144:8010",link); // 허용 url
+                     .allowedOrigins("http://localhost:8010",link); // 허용 url
     }
 
 }
